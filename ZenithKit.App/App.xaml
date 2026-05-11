@@ -1,6 +1,7 @@
 <Application x:Class="ZenithKit.App.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:ZenithKit.App.Controls">
     <Application.Resources>
         <!-- Theme colors -->
         <Color x:Key="PrimaryBgColor">#0f1115</Color>
@@ -21,6 +22,10 @@
         <SolidColorBrush x:Key="TextPrimary" Color="{StaticResource TextPrimaryColor}" />
         <SolidColorBrush x:Key="TextSecondary" Color="{StaticResource TextSecondaryColor}" />
         <SolidColorBrush x:Key="TextMuted" Color="{StaticResource TextMutedColor}" />
+
+        <!-- Converters -->
+        <BooleanToVisibilityConverter x:Key="BoolToVisibility"/>
+        <local:InvertBoolConverter x:Key="InvertBool"/>
 
         <!-- Text defaults -->
         <Style TargetType="TextBlock">

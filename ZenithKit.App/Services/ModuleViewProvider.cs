@@ -28,6 +28,7 @@ public sealed class ModuleViewProvider : IModuleViewProvider
             "image" => _services.GetRequiredService<ImageToolsView>(),
             "pdf" => _services.GetRequiredService<PdfToolsView>(),
             "diff" => _services.GetRequiredService<DiffView>(),
+            "diskcleanup" => _services.GetRequiredService<DiskCleanupView>(),
             _ => new PlaceholderView(module)
         };
     }

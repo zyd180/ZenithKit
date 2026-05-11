@@ -61,6 +61,7 @@ public partial class App : Application
             catalog.Register(new ModuleMetadata("image", "图片转换/压缩", "格式转换、缩放、压缩"));
             catalog.Register(new ModuleMetadata("pdf", "PDF 合并/拆分", "离线 PDF 合并、拆分"));
             catalog.Register(new ModuleMetadata("diff", "文本对比", "双文件文本差异对比"));
+            catalog.Register(new ModuleMetadata("diskcleanup", "硬盘清理", "扫描并清理系统垃圾文件，释放磁盘空间"));
             return catalog;
         });
 
@@ -89,6 +90,7 @@ public partial class App : Application
         services.AddSingleton<IPdfToolsService, PdfToolsService>();
         services.AddSingleton<IDiffService, DiffService>();
         services.AddSingleton<IRegionSelector, RegionSelector>();
+        services.AddSingleton<IDiskCleanupService, DiskCleanupService>();
 
         // ViewModels
         services.AddSingleton<ViewModels.MainViewModel>();
@@ -102,6 +104,7 @@ public partial class App : Application
         services.AddTransient<ViewModels.ImageToolsViewModel>();
         services.AddTransient<ViewModels.PdfToolsViewModel>();
         services.AddTransient<ViewModels.DiffViewModel>();
+        services.AddTransient<ViewModels.DiskCleanupViewModel>();
         services.AddSingleton<IModuleViewProvider, ModuleViewProvider>();
 
         // Views registered as transient
@@ -115,6 +118,7 @@ public partial class App : Application
         services.AddTransient<Views.ImageToolsView>();
         services.AddTransient<Views.PdfToolsView>();
         services.AddTransient<Views.DiffView>();
+        services.AddTransient<Views.DiskCleanupView>();
 
         // Tray
         services.AddSingleton<Tray.TrayIcon>();

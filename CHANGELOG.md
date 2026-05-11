@@ -4,6 +4,15 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [0.3.0] - 2026-05-11
+
+### Added
+- **硬盘清理**模块 — 扫描并清理系统垃圾文件，释放磁盘空间
+  - 支持 6 个清理类别：Windows 临时文件、用户临时文件、缩略图缓存、Windows 更新缓存、回收站、DNS 缓存
+  - 异步扫描，显示各类别大小
+  - 可勾选清理类别，带进度条和结果报告
+- Added `InvertBoolConverter` for XAML bool inversion bindings
+
 ## [0.2.0] - 2026-05-11
 
 ### Changed

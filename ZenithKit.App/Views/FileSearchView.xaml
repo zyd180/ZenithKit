@@ -1,0 +1,29 @@
+<UserControl x:Class="ZenithKit.App.Views.FileSearchView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" Height="200">
+    <Grid Background="#1e1e1e">
+        <Border Padding="12">
+            <StackPanel>
+                <TextBlock Text="文件快速搜索" Foreground="#fff" FontSize="16" FontWeight="Bold" Margin="0,0,0,8"/>
+                <StackPanel Orientation="Horizontal">
+                    <StackPanel.Resources>
+                        <Style TargetType="FrameworkElement">
+                            <Setter Property="Margin" Value="0,0,6,0"/>
+                        </Style>
+                    </StackPanel.Resources>
+                    <TextBox Text="{Binding Query, UpdateSourceTrigger=PropertyChanged}" Width="200"/>
+                    <TextBox Text="{Binding RootPath, UpdateSourceTrigger=PropertyChanged}" Width="200"/>
+                    <TextBox Text="{Binding Filter, UpdateSourceTrigger=PropertyChanged}" Width="120"/>
+                    <TextBox Text="{Binding MaxResults, UpdateSourceTrigger=PropertyChanged}" Width="80"/>
+                    <Button Content="搜索" Width="80" Command="{Binding SearchCommand}"/>
+                </StackPanel>
+                <TextBlock Text="根目录为空则默认当前存储；Filter 可空，如 *.txt" Foreground="#777" FontSize="12" Margin="0,4,0,2"/>
+                <TextBlock Text="{Binding Info}" Foreground="#777" FontSize="12" Margin="0,0,0,4"/>
+                <ListBox ItemsSource="{Binding Results}" Margin="0,4,0,0" Height="240"/>
+            </StackPanel>
+        </Border>
+    </Grid>
+</UserControl>

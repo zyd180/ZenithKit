@@ -8,7 +8,7 @@ if (-Not (Test-Path $publishDir)) {
 }
 
 # Build & publish (framework-dependent, no trimming, single-folder)
-dotnet publish "$solutionDir\MiCodeAutoToolBox.App\MiCodeAutoToolBox.App.csproj" `
+dotnet publish "$solutionDir\ZenithKit.App\ZenithKit.App.csproj" `
     -c Release `
     -r win-x64 `
     --self-contained false `

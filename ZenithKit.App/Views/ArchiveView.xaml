@@ -1,0 +1,28 @@
+<UserControl x:Class="ZenithKit.App.Views.ArchiveView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" Height="200">
+    <Grid Background="#1e1e1e">
+        <Border Padding="12">
+            <StackPanel>
+                <TextBlock Text="压缩/解压" Foreground="#fff" FontSize="16" FontWeight="Bold" Margin="0,0,0,8"/>
+                <StackPanel Orientation="Horizontal">
+                    <TextBox Text="{Binding SourcePath, UpdateSourceTrigger=PropertyChanged}" Width="320" Margin="0,0,0,6"/>
+                    <Button Content="浏览" Width="80" Command="{Binding BrowseSourceCommand}" Margin="6,0,0,0"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <StackPanel.Resources>
+                        <Style TargetType="FrameworkElement">
+                            <Setter Property="Margin" Value="0,0,6,0"/>
+                        </Style>
+                    </StackPanel.Resources>
+                    <Button Content="压缩" Width="80" Command="{Binding ZipCommand}"/>
+                    <Button Content="解压" Width="80" Command="{Binding UnzipCommand}"/>
+                </StackPanel>
+                <TextBlock Text="{Binding ResultPath}" Foreground="#ccc" FontSize="12" TextWrapping="Wrap" Margin="0,6,0,0"/>
+            </StackPanel>
+        </Border>
+    </Grid>
+</UserControl>

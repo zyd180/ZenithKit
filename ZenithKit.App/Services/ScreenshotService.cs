@@ -36,16 +36,12 @@ public sealed class ScreenshotService : IScreenshotService
         return CaptureInternalAsync(region, cancellationToken);
     }
 
-    public Task<string> CaptureWindowAsync(IntPtr hWnd, CancellationToken cancellationToken = default)
+    public async Task<string> CaptureWindowAsync(IntPtr hWnd, CancellationToken cancellationToken = default)
     {
-        return Task.Run(() =>
-        {
-            cancellationToken.ThrowIfCancellationRequested();
-            if (hWnd == IntPtr.Zero) throw new ArgumentException("Invalid window handle", nameof(hWnd));
-            NativeMethods.GetWindowRect(hWnd, out var rect);
-            var bounds = new Rectangle(rect.Left, rect.Top, rect.Right - rect.Left, rect.Bottom - rect.Top);
-            return CaptureInternalAsync(bounds, cancellationToken).Result;
-        }, cancellationToken);
+        if (hWnd == IntPtr.Zero) throw new ArgumentException("Invalid window handle", nameof(hWnd));
+        NativeMethods.GetWindowRect(hWnd, out var rect);
+        var bounds = new Rectangle(rect.Left, rect.Top, rect.Right - rect.Left, rect.Bottom - rect.Top);
+        return await CaptureInternalAsync(bounds, cancellationToken);
     }
 
     private Task<string> CaptureInternalAsync(Rectangle bounds, CancellationToken cancellationToken)

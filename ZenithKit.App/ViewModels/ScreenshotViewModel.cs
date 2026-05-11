@@ -22,18 +22,6 @@ public partial class ScreenshotViewModel : ObservableObject
     private string? _status;
 
     [ObservableProperty]
-    private string _regionX = "";
-
-    [ObservableProperty]
-    private string _regionY = "";
-
-    [ObservableProperty]
-    private string _regionW = "";
-
-    [ObservableProperty]
-    private string _regionH = "";
-
-    [ObservableProperty]
     private ObservableCollection<WindowEntry> _windows = new();
 
     [ObservableProperty]
@@ -54,7 +42,6 @@ public partial class ScreenshotViewModel : ObservableObject
         try
         {
             Status = "全屏截图中...";
-            _screenshotService.SaveDirectory = SaveDirectory;
             string path = await _screenshotService.CaptureAsync();
             LastSavedPath = path;
             Status = $"已保存: {path}";
@@ -79,7 +66,6 @@ public partial class ScreenshotViewModel : ObservableObject
             }
 
             Status = "区域截图中...";
-            _screenshotService.SaveDirectory = SaveDirectory;
             var rect = new System.Drawing.Rectangle(picked.Value.X, picked.Value.Y, picked.Value.Width, picked.Value.Height);
             string path = await _screenshotService.CaptureRegionAsync(rect);
             LastSavedPath = path;
@@ -103,7 +89,6 @@ public partial class ScreenshotViewModel : ObservableObject
         try
         {
             Status = "窗口截图中...";
-            _screenshotService.SaveDirectory = SaveDirectory;
             string path = await _screenshotService.CaptureWindowAsync(SelectedWindow.Handle);
             LastSavedPath = path;
             Status = $"已保存: {path}";

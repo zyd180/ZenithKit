@@ -22,6 +22,7 @@
                     <Button Content="解压" Width="80" Command="{Binding UnzipCommand}"/>
                 </StackPanel>
                 <TextBlock Text="{Binding ResultPath}" Foreground="#ccc" FontSize="12" TextWrapping="Wrap" Margin="0,6,0,0"/>
+                <TextBlock Text="{Binding Status}" Foreground="#7d8291" FontSize="11" Margin="0,4,0,0"/>
             </StackPanel>
         </Border>
     </Grid>

@@ -10,7 +10,7 @@ public sealed class CleanupCategory
 
     public string SizeText => FormatBytes(Size);
 
-    private static string FormatBytes(long bytes)
+    public static string FormatBytes(long bytes)
     {
         string[] units = ["B", "KB", "MB", "GB", "TB"];
         double size = bytes;

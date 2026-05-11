@@ -51,44 +51,47 @@ public partial class DiffViewModel : ObservableObject
     [RelayCommand]
     private void BrowseLeft()
     {
-#pragma warning disable CA1416
-        using var dlg = new System.Windows.Forms.OpenFileDialog();
-        dlg.Title = "选择左侧文件";
-        dlg.Filter = "文本文件|*.txt;*.md;*.json;*.xml;*.cs;*.cpp;*.h;*.js;*.ts;*.config;*.*|所有文件|*.*";
-        dlg.CheckFileExists = true;
-        if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-        {
-            LeftPath = dlg.FileName;
-        }
-#pragma warning restore CA1416
+        var path = BrowseFile("选择左侧文件");
+        if (path is not null) LeftPath = path;
     }
 
     [RelayCommand]
     private void BrowseRight()
     {
-#pragma warning disable CA1416
-        using var dlg = new System.Windows.Forms.OpenFileDialog();
-        dlg.Title = "选择右侧文件";
-        dlg.Filter = "文本文件|*.txt;*.md;*.json;*.xml;*.cs;*.cpp;*.h;*.js;*.ts;*.config;*.*|所有文件|*.*";
-        dlg.CheckFileExists = true;
-        if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-        {
-            RightPath = dlg.FileName;
-        }
-#pragma warning restore CA1416
+        var path = BrowseFile("选择右侧文件");
+        if (path is not null) RightPath = path;
     }
 
     [RelayCommand]
     private async Task Diff()
     {
-        var list = await _diffService.DiffAsync(LeftPath, RightPath);
-        Pairs.Clear();
-        foreach (var item in list)
+        try
         {
-            Pairs.Add(item);
+            DiffResult = "对比中...";
+            var list = await _diffService.DiffAsync(LeftPath, RightPath);
+            Pairs.Clear();
+            foreach (var item in list)
+            {
+                Pairs.Add(item);
+            }
+            _filteredPairs.Refresh();
+            DiffResult = $"对比完成：{list.Count} 行";
         }
-        _filteredPairs.Refresh();
-        DiffResult = $"对比完成：{list.Count} 行";
+        catch (Exception ex)
+        {
+            DiffResult = $"对比失败: {ex.Message}";
+        }
+    }
+
+    private static string? BrowseFile(string title)
+    {
+#pragma warning disable CA1416
+        using var dlg = new System.Windows.Forms.OpenFileDialog();
+        dlg.Title = title;
+        dlg.Filter = "文本文件|*.txt;*.md;*.json;*.xml;*.cs;*.cpp;*.h;*.js;*.ts;*.config;*.*|所有文件|*.*";
+        dlg.CheckFileExists = true;
+        return dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK ? dlg.FileName : null;
+#pragma warning restore CA1416
     }
 
     [RelayCommand]

@@ -13,15 +13,6 @@
             <Button Content="全屏截图" Width="120" Command="{Binding CaptureCommand}"/>
 
             <StackPanel Orientation="Horizontal" Margin="0,8,0,0">
-                <StackPanel.Resources>
-                    <Style TargetType="FrameworkElement">
-                        <Setter Property="Margin" Value="0,0,6,0"/>
-                    </Style>
-                </StackPanel.Resources>
-                <TextBox Text="{Binding RegionX}" Width="60"/>
-                <TextBox Text="{Binding RegionY}" Width="60"/>
-                <TextBox Text="{Binding RegionW}" Width="60"/>
-                <TextBox Text="{Binding RegionH}" Width="60"/>
                 <Button Content="区域截图" Width="120" Command="{Binding CaptureRegionCommand}"/>
             </StackPanel>
 

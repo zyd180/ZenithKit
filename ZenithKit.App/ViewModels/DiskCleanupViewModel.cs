@@ -50,7 +50,7 @@ public partial class DiskCleanupViewModel : ObservableObject
             OnPropertyChanged(nameof(Categories));
 
             long total = Categories.Sum(c => c.Size);
-            TotalSizeText = $"可释放空间: {FormatBytes(total)}";
+            TotalSizeText = $"可释放空间: {CleanupCategory.FormatBytes(total)}";
             StatusText = $"扫描完成，共发现 {Categories.Count(c => c.Size > 0)} 个可清理类别";
             HasResults = total > 0;
         }
@@ -88,8 +88,8 @@ public partial class DiskCleanupViewModel : ObservableObject
 
             var result = await _cleanupService.CleanAsync(selected, progress);
 
-            TotalSizeText = $"已释放: {FormatBytes(result.SpaceFreed)}";
-            StatusText = $"清理完成，删除了 {result.FilesDeleted} 个文件，释放 {FormatBytes(result.SpaceFreed)}";
+            TotalSizeText = $"已释放: {CleanupCategory.FormatBytes(result.SpaceFreed)}";
+            StatusText = $"清理完成，删除了 {result.FilesDeleted} 个文件，释放 {CleanupCategory.FormatBytes(result.SpaceFreed)}";
             ProgressValue = 100;
 
             // refresh sizes
@@ -104,18 +104,5 @@ public partial class DiskCleanupViewModel : ObservableObject
         {
             IsCleaning = false;
         }
-    }
-
-    private static string FormatBytes(long bytes)
-    {
-        string[] units = ["B", "KB", "MB", "GB", "TB"];
-        double size = bytes;
-        int unit = 0;
-        while (size >= 1024 && unit < units.Length - 1)
-        {
-            size /= 1024;
-            unit++;
-        }
-        return $"{size:F2} {units[unit]}";
     }
 }

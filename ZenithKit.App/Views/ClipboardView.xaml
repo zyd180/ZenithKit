@@ -11,8 +11,11 @@
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Margin="0,0,0,8">
-                            <TextBlock Text="{Binding Text}" TextWrapping="Wrap" Foreground="{StaticResource TextPrimary}"/>
-                            <TextBlock Text="{Binding Timestamp}" Foreground="{StaticResource TextMuted}" FontSize="11"/>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="{Binding TypeLabel}" Foreground="{StaticResource AccentBrush}" FontSize="10" Margin="0,0,6,0"/>
+                                <TextBlock Text="{Binding Timestamp}" Foreground="{StaticResource TextMuted}" FontSize="10"/>
+                            </StackPanel>
+                            <TextBlock Text="{Binding Text}" TextWrapping="Wrap" Foreground="{StaticResource TextPrimary}" Margin="0,2,0,0"/>
                         </StackPanel>
                     </DataTemplate>
                 </ListBox.ItemTemplate>

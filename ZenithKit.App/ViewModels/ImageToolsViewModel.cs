@@ -27,6 +27,9 @@ public partial class ImageToolsViewModel : ObservableObject
     private string _resultPath = string.Empty;
 
     [ObservableProperty]
+    private string _status = string.Empty;
+
+    [ObservableProperty]
     private string _saveDirectory;
 
     public ImageToolsViewModel(IImageToolsService service)
@@ -67,7 +70,16 @@ public partial class ImageToolsViewModel : ObservableObject
     [RelayCommand]
     private async Task Convert()
     {
-        _service.SaveDirectory = SaveDirectory;
-        ResultPath = await _service.ConvertAsync(SourcePath, Format, MaxWidth, MaxHeight, Quality);
+        try
+        {
+            Status = "转换中...";
+            _service.SaveDirectory = SaveDirectory;
+            ResultPath = await _service.ConvertAsync(SourcePath, Format, MaxWidth, MaxHeight, Quality);
+            Status = $"转换完成: {ResultPath}";
+        }
+        catch (Exception ex)
+        {
+            Status = $"转换失败: {ex.Message}";
+        }
     }
 }

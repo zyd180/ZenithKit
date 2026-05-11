@@ -14,6 +14,9 @@ public partial class ArchiveViewModel : ObservableObject
     [ObservableProperty]
     private string _resultPath = string.Empty;
 
+    [ObservableProperty]
+    private string _status = string.Empty;
+
     public ArchiveViewModel(IArchiveService archiveService)
     {
         _archiveService = archiveService;
@@ -38,12 +41,30 @@ public partial class ArchiveViewModel : ObservableObject
     [RelayCommand]
     private async Task Zip()
     {
-        ResultPath = await _archiveService.ZipAsync(SourcePath);
+        try
+        {
+            Status = "压缩中...";
+            ResultPath = await _archiveService.ZipAsync(SourcePath);
+            Status = $"压缩完成: {ResultPath}";
+        }
+        catch (Exception ex)
+        {
+            Status = $"压缩失败: {ex.Message}";
+        }
     }
 
     [RelayCommand]
     private async Task Unzip()
     {
-        ResultPath = await _archiveService.UnzipAsync(SourcePath);
+        try
+        {
+            Status = "解压中...";
+            ResultPath = await _archiveService.UnzipAsync(SourcePath);
+            Status = $"解压完成: {ResultPath}";
+        }
+        catch (Exception ex)
+        {
+            Status = $"解压失败: {ex.Message}";
+        }
     }
 }

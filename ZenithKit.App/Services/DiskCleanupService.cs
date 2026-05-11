@@ -1,4 +1,5 @@
 using System.IO;
+using System.Runtime.InteropServices;
 using ZenithKit.App.Models;
 
 namespace ZenithKit.App.Services;
@@ -88,12 +89,22 @@ public sealed class DiskCleanupService : IDiskCleanupService
                 if (cat.Id == "dnscache")
                 {
                     FlushDns();
+                    progress?.Report(new CleanupProgress(cat.Name, 0));
                     continue;
                 }
 
-                int deleted = CleanDirectory(cat.Path, out long freed, cancellationToken);
+                if (cat.Id == "recycle")
+                {
+                    long freed = EmptyRecycleBin();
+                    totalFreed += freed;
+                    cat.Size = 0;
+                    progress?.Report(new CleanupProgress(cat.Name, 0));
+                    continue;
+                }
+
+                int deleted = CleanDirectory(cat.Path, out long dirFreed, cancellationToken);
                 totalFiles += deleted;
-                totalFreed += freed;
+                totalFreed += dirFreed;
                 cat.Size = 0;
                 progress?.Report(new CleanupProgress(cat.Name, deleted));
             }
@@ -204,4 +215,27 @@ public sealed class DiskCleanupService : IDiskCleanupService
             // best effort
         }
     }
+
+    private static long EmptyRecycleBin()
+    {
+        try
+        {
+            // Estimate size before emptying
+            long size = CalculateDirectorySize(@"C:\$Recycle.Bin", CancellationToken.None);
+            SHEmptyRecycleBin(IntPtr.Zero, null,
+                SHERB_NOCONFIRMATION | SHERB_NOPROGRESSUI | SHERB_NOSOUND);
+            return size;
+        }
+        catch
+        {
+            return 0;
+        }
+    }
+
+    private const uint SHERB_NOCONFIRMATION = 0x00000001;
+    private const uint SHERB_NOPROGRESSUI = 0x00000002;
+    private const uint SHERB_NOSOUND = 0x00000004;
+
+    [DllImport("Shell32.dll", CharSet = CharSet.Unicode)]
+    private static extern uint SHEmptyRecycleBin(IntPtr hwnd, string? pszRootPath, uint dwFlags);
 }

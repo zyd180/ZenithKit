@@ -1,6 +1,7 @@
 using System.IO;
 using PdfSharpCore.Pdf;
 using PdfSharpCore.Pdf.IO;
+using ZenithKit.Core.Services;
 
 namespace ZenithKit.App.Services;
 
@@ -14,9 +15,9 @@ public sealed class PdfToolsService : IPdfToolsService
 {
     private readonly string _basePath;
 
-    public PdfToolsService()
+    public PdfToolsService(IStorageService storage)
     {
-        _basePath = Directory.GetCurrentDirectory();
+        _basePath = storage.CurrentPath;
     }
 
     public Task<string> MergeAsync(IEnumerable<string> pdfPaths, string? outputPath = null, CancellationToken cancellationToken = default)

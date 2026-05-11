@@ -4,6 +4,20 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [0.3.1] - 2026-05-11
+
+### Fixed
+- **剪贴板**: `Dispose` 事件取消订阅无效（匿名 lambda 导致内存泄漏）
+- **剪贴板**: 增加图片和 RTF 内容类型检测
+- **图片工具**: 编码器匹配大小写不一致 bug
+- **截图**: `CaptureWindowAsync` 嵌套 Task + `.Result` 反模式改为 async/await
+- **截图**: 删除未使用的 `RegionX/Y/W/H` 属性，移除冗余 `SaveDirectory` 赋值
+- **PDF 工具**: 输出路径从 `GetCurrentDirectory()` 改为 `IStorageService.CurrentPath`
+- **硬盘清理**: 回收站改用 `SHEmptyRecycleBin` API（需管理员权限）
+- **硬盘清理**: 消除 `FormatBytes` 重复实现，统一使用 `CleanupCategory.FormatBytes`
+- **全局**: 所有 ViewModel 的操作命令增加 try-catch 错误处理
+- **文本对比**: `BrowseLeft`/`BrowseRight` 提取公共 `BrowseFile` 方法
+
 ## [0.3.0] - 2026-05-11
 
 ### Added

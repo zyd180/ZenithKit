@@ -88,8 +88,9 @@ public sealed class ImageToolsService : IImageToolsService
 
     private static ImageCodecInfo? GetEncoder(string ext)
     {
-        var format = ext.ToLowerInvariant();
-        return ImageCodecInfo.GetImageEncoders().FirstOrDefault(e => e.FilenameExtension!.Contains(format.ToUpperInvariant()));
+        var search = $"*{ext.ToUpperInvariant()}";
+        return ImageCodecInfo.GetImageEncoders()
+            .FirstOrDefault(e => e.FilenameExtension!.Contains(search, StringComparison.OrdinalIgnoreCase));
     }
 }
 #pragma warning restore CA1416

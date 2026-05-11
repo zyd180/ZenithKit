@@ -17,6 +17,9 @@ public partial class ChecksumViewModel : ObservableObject
     [ObservableProperty]
     private string _result = string.Empty;
 
+    [ObservableProperty]
+    private string _status = string.Empty;
+
     public ChecksumViewModel(IChecksumService checksumService)
     {
         _checksumService = checksumService;
@@ -25,6 +28,30 @@ public partial class ChecksumViewModel : ObservableObject
     [RelayCommand]
     private async Task Compute()
     {
-        Result = await _checksumService.ComputeAsync(FilePath, Algorithm);
+        try
+        {
+            Status = "计算中...";
+            Result = await _checksumService.ComputeAsync(FilePath, Algorithm);
+            Status = "计算完成";
+        }
+        catch (Exception ex)
+        {
+            Status = $"计算失败: {ex.Message}";
+        }
+    }
+
+    [RelayCommand]
+    private void BrowseFile()
+    {
+#pragma warning disable CA1416
+        using var dlg = new System.Windows.Forms.OpenFileDialog();
+        dlg.Title = "选择文件";
+        dlg.Filter = "所有文件|*.*";
+        dlg.CheckFileExists = true;
+        if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+        {
+            FilePath = dlg.FileName;
+        }
+#pragma warning restore CA1416
     }
 }

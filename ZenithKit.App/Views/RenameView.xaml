@@ -14,14 +14,18 @@
                             <Setter Property="Margin" Value="0,0,6,0"/>
                         </Style>
                     </StackPanel.Resources>
-                    <TextBox Text="{Binding FolderPath, UpdateSourceTrigger=PropertyChanged}" Width="260"/>
+                    <TextBox Text="{Binding FolderPath, UpdateSourceTrigger=PropertyChanged}" Width="220"/>
+                    <Button Content="浏览" Width="60" Command="{Binding BrowseFolderCommand}"/>
                     <TextBox Text="{Binding Pattern, UpdateSourceTrigger=PropertyChanged}" Width="140"/>
                     <TextBox Text="{Binding Start, UpdateSourceTrigger=PropertyChanged}" Width="60"/>
                     <TextBox Text="{Binding Step, UpdateSourceTrigger=PropertyChanged}" Width="60"/>
                     <Button Content="预览" Width="80" Command="{Binding PreviewCommand}"/>
                     <Button Content="执行" Width="80" Command="{Binding RenameCommand}"/>
                 </StackPanel>
-                <TextBlock Text="Pattern 使用 {0} 作为序号占位" Foreground="#777" FontSize="12" Margin="0,6,0,6"/>
+                <StackPanel Orientation="Horizontal" Margin="0,6,0,2">
+                    <TextBlock Text="Pattern 使用 {0} 作为序号占位" Foreground="#777" FontSize="12"/>
+                    <TextBlock Text="{Binding Status}" Foreground="#7d8291" FontSize="11" Margin="16,0,0,0"/>
+                </StackPanel>
                 <ListBox ItemsSource="{Binding Renamed}" Height="200"/>
             </StackPanel>
         </Border>

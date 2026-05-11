@@ -53,11 +53,11 @@ public partial class App : Application
             // Register initial high-frequency utilities
             catalog.Register(new ModuleMetadata("clipboard", "剪贴板历史", "记录并搜索剪贴板（文本/图片/RTF）"));
             catalog.Register(new ModuleMetadata("screenshot", "截图标注", "截图、涂鸦标注、快捷保存"));
-            // catalog.Register(new ModuleMetadata("launcher", "启动器", "全局快捷命令/应用启动"));
-            // catalog.Register(new ModuleMetadata("filesearch", "文件快速搜索", "文件名索引搜索与最近文件"));
-            // catalog.Register(new ModuleMetadata("rename", "批量重命名", "模式/编号/大小写批量改名"));
+            catalog.Register(new ModuleMetadata("launcher", "启动器", "全局快捷命令/应用启动"));
+            catalog.Register(new ModuleMetadata("filesearch", "文件快速搜索", "文件名索引搜索与最近文件"));
+            catalog.Register(new ModuleMetadata("rename", "批量重命名", "模式/编号/大小写批量改名"));
             catalog.Register(new ModuleMetadata("archive", "压缩/解压", "zip 压缩/解压工具"));
-            // catalog.Register(new ModuleMetadata("checksum", "校验和", "MD5/SHA1/SHA256 计算与验证"));
+            catalog.Register(new ModuleMetadata("checksum", "校验和", "MD5/SHA1/SHA256 计算与验证"));
             catalog.Register(new ModuleMetadata("image", "图片转换/压缩", "格式转换、缩放、压缩"));
             catalog.Register(new ModuleMetadata("pdf", "PDF 合并/拆分", "离线 PDF 合并、拆分"));
             catalog.Register(new ModuleMetadata("diff", "文本对比", "双文件文本差异对比"));

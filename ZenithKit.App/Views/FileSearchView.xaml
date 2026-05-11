@@ -15,9 +15,10 @@
                         </Style>
                     </StackPanel.Resources>
                     <TextBox Text="{Binding Query, UpdateSourceTrigger=PropertyChanged}" Width="200"/>
-                    <TextBox Text="{Binding RootPath, UpdateSourceTrigger=PropertyChanged}" Width="200"/>
-                    <TextBox Text="{Binding Filter, UpdateSourceTrigger=PropertyChanged}" Width="120"/>
-                    <TextBox Text="{Binding MaxResults, UpdateSourceTrigger=PropertyChanged}" Width="80"/>
+                    <TextBox Text="{Binding RootPath, UpdateSourceTrigger=PropertyChanged}" Width="180"/>
+                    <Button Content="浏览" Width="60" Command="{Binding BrowseRootCommand}"/>
+                    <TextBox Text="{Binding Filter, UpdateSourceTrigger=PropertyChanged}" Width="100"/>
+                    <TextBox Text="{Binding MaxResults, UpdateSourceTrigger=PropertyChanged}" Width="60"/>
                     <Button Content="搜索" Width="80" Command="{Binding SearchCommand}"/>
                 </StackPanel>
                 <TextBlock Text="根目录为空则默认当前存储；Filter 可空，如 *.txt" Foreground="#777" FontSize="12" Margin="0,4,0,2"/>

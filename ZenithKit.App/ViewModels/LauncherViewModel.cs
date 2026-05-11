@@ -11,6 +11,9 @@ public partial class LauncherViewModel : ObservableObject
     [ObservableProperty]
     private string _target = string.Empty;
 
+    [ObservableProperty]
+    private string _status = string.Empty;
+
     public LauncherViewModel(ILauncherService launcherService)
     {
         _launcherService = launcherService;
@@ -19,6 +22,15 @@ public partial class LauncherViewModel : ObservableObject
     [RelayCommand]
     private async Task Launch()
     {
-        await _launcherService.LaunchAsync(Target);
+        try
+        {
+            Status = "启动中...";
+            await _launcherService.LaunchAsync(Target);
+            Status = $"已启动: {Target}";
+        }
+        catch (Exception ex)
+        {
+            Status = $"启动失败: {ex.Message}";
+        }
     }
 }

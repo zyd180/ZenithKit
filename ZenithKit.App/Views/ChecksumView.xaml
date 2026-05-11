@@ -8,7 +8,10 @@
         <Border Padding="12">
             <StackPanel>
                 <TextBlock Text="校验和" Foreground="#fff" FontSize="16" FontWeight="Bold" Margin="0,0,0,8"/>
-                <TextBox Text="{Binding FilePath, UpdateSourceTrigger=PropertyChanged}" Width="320" Margin="0,0,0,6"/>
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,6">
+                    <TextBox Text="{Binding FilePath, UpdateSourceTrigger=PropertyChanged}" Width="280"/>
+                    <Button Content="浏览" Width="60" Command="{Binding BrowseFileCommand}" Margin="6,0,0,0"/>
+                </StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <ComboBox Width="120" SelectedItem="{Binding Algorithm}">
                         <ComboBoxItem Content="MD5"/>
@@ -17,7 +20,8 @@
                     </ComboBox>
                     <Button Content="计算" Width="80" Command="{Binding ComputeCommand}" Margin="6,0,0,0"/>
                 </StackPanel>
-                <TextBox Text="{Binding Result}" IsReadOnly="True" Margin="0,8,0,0" Height="80" TextWrapping="Wrap"/>
+                <TextBox Text="{Binding Result}" IsReadOnly="True" Margin="0,8,0,0" Height="60" TextWrapping="Wrap"/>
+                <TextBlock Text="{Binding Status}" Foreground="#7d8291" FontSize="11" Margin="0,4,0,0"/>
             </StackPanel>
         </Border>
     </Grid>

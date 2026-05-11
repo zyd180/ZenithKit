@@ -1,14 +1,48 @@
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
+
 namespace ZenithKit.App.Models;
 
-public sealed class CleanupCategory
+public sealed class CleanupCategory : INotifyPropertyChanged
 {
     public required string Id { get; init; }
     public required string Name { get; init; }
     public required string Path { get; init; }
-    public long Size { get; set; }
-    public bool IsSelected { get; set; } = true;
+
+    private long _size;
+    public long Size
+    {
+        get => _size;
+        set
+        {
+            if (_size != value)
+            {
+                _size = value;
+                OnPropertyChanged();
+                OnPropertyChanged(nameof(SizeText));
+            }
+        }
+    }
+
+    private bool _isSelected = true;
+    public bool IsSelected
+    {
+        get => _isSelected;
+        set
+        {
+            if (_isSelected != value)
+            {
+                _isSelected = value;
+                OnPropertyChanged();
+            }
+        }
+    }
 
     public string SizeText => FormatBytes(Size);
+
+    public event PropertyChangedEventHandler? PropertyChanged;
+    private void OnPropertyChanged([CallerMemberName] string? name = null)
+        => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
 
     public static string FormatBytes(long bytes)
     {

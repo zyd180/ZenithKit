@@ -36,6 +36,7 @@
 
                 <TextBlock Foreground="#777" FontSize="12" Text="格式/宽/高/质量(0-100，jpeg有效)" Margin="0,6,0,6"/>
                 <TextBlock Text="{Binding ResultPath}" Foreground="#ccc" FontSize="12" TextWrapping="Wrap"/>
+                <TextBlock Text="{Binding Status}" Foreground="#7d8291" FontSize="11" Margin="0,4,0,0"/>
             </StackPanel>
         </Border>
     </Grid>

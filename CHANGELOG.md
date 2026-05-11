@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [0.3.2] - 2026-05-11
+
+### Fixed
+- **硬盘清理**: `CleanupCategory` 添加 `INotifyPropertyChanged`，修复扫描/清理后 UI 大小不更新
+- **PDF 工具**: `PdfToolsView` 补充缺失的 `Status` 绑定
+- **图片工具**: `ImageToolsView` 补充缺失的 `Status` 绑定
+
 ## [0.3.1] - 2026-05-11
 
 ### Fixed
